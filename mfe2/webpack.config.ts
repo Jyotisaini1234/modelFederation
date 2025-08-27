@@ -1,14 +1,19 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import webpackPkg, { Configuration } from 'webpack';  // Default import
-const { container } = webpackPkg;                     // Destructure CommonJS module
+import webpackPkg, { Configuration } from 'webpack';
+import { fileURLToPath } from "url";
+
+const { container } = webpackPkg;
 const { ModuleFederationPlugin } = container;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const config: Configuration = {
   entry: './src/index.tsx',
   mode: 'development',
   devServer: {
-    static: path.join(process.cwd(), 'dist'),
+    static: path.join(__dirname, "dist"),
     port: 3002,
   },
   output: {
@@ -40,3 +45,4 @@ const config: Configuration = {
 }as any
 
 export default config;
+
